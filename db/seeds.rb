@@ -5,3 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Event.destroy_all
+
+Event.create(title: "pasado", start: (Time.now - 5.days), :end => (Time.now - 2.days), allDay:false)
+
+Event.create(title: "presente", start: (Time.now - 2.days), :end => (Time.now + 2.days), allDay:false)
+Event.create(title: "futuro", start: (Time.now + 2.days), :end => (Time.now + 5.days), allDay:false)
+
+Event.create(title: "allday", start: (Time.now - 7.days), :end => (Time.now - 6.days), allDay:true)
