@@ -1,6 +1,23 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
+  def past_events
+    @events= Event.where("end < ? AND allDay = ?", Time.now, false)
+
+   end
+
+  def allDay_events
+    @events  = Event.where(allDay: true)
+  end
+
+  def future_events
+    @events= Event.where("start > ? AND allDay = ?", Time.now, false)
+  end
+  
+  def present_events
+    @events= Event.where("end > ? AND start < ?  AND allDay = ?", Time.now, Time.now, false)
+  end
+
   # GET /events
   # GET /events.json
   def index
@@ -60,6 +77,7 @@ class EventsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

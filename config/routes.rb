@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
-  resources :events
+  resources :events do
+    collection do
+      get 'past_events'
+      get 'allDay_events'
+      get "future_events"
+      get "present_events"
+    end
+  end
+  
   get 'pages/home' 
 
   # The priority is based upon order of creation: first created -> highest priority.
