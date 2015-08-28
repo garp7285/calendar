@@ -2,7 +2,9 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   def past_events
-    @events= Event.where("end < ? AND allDay = ?", Time.now, false)
+    @beginin_of_time = Time.now - 100.years
+
+    @events= Event.where(end: @beginin_of_time..Time.now).where(allDay: false)
 
    end
 
@@ -11,11 +13,12 @@ class EventsController < ApplicationController
   end
 
   def future_events
-    @events= Event.where("start > ? AND allDay = ?", Time.now, false)
+    @events= Event.where("start > ?", Time.now).where(allDay: false)
   end
   
   def present_events
-    @events= Event.where("end > ? AND start < ?  AND allDay = ?", Time.now, Time.now, false)
+    @end_of_time = Time.now + 100.years
+    @events= Event.where("start < ?", Time.now).where(end: Time.now..@end_of_time).where(allDay: false)
   end
 
   # GET /events
